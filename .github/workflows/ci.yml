@@ -24,6 +24,14 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+     
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: mavenkey: maven-${{ hashFiles('**/pom.xml') }}
+      - name: Build project
+        run: mvn clean test
 
       - name: Verify Java version
         run: java -version
